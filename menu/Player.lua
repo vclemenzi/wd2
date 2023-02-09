@@ -168,10 +168,12 @@ local function GiveCash()
 	end)
 end
 
-local function Add10000Followers()
-	ScriptHook.SetProgression(3, 10000)
-
-	ScriptHook.ShowNotification("Added 10.000 followers")
+local function AddFollowers()
+	UI.SimpleTextInput("Quantity", function(success, text)
+		if success then
+			ScriptHook.SetProgression(3, tonumber(text))
+		end
+	end)
 end
 
 -- Noclip
@@ -198,8 +200,8 @@ local function PlayerMenu()
 	menu:AddButton("Weapons", GiveWeaponsMenu)
 	menu:AddButton("Felony", "Clear heat, toggle felony", OpenWantedMenuCall)
 	menu:AddButton("Relationship", "Set your relationship to fractions", OpenRelationshipMenu)
-	menu:AddButton("Add cash", "Adds $10.000 to your pocket", GiveCash)
-	menu:AddButton("Add 10.000 followers", "Boost your level up by adding 10.000 followers", Add10000Followers)
+	menu:AddButton("Add cash", "Adds some cash to your pocket", GiveCash)
+	menu:AddButton("Add followers", "Boost your level up by adding some followers", AddFollowers)
 
 	-- Update
 	menu:OnUpdate(function()
