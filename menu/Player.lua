@@ -160,10 +160,12 @@ local function PlayerSetUnlimitedAmmo(on)
 	Script().StateWatcher:UnlimitedAmmo()
 end
 
-local function Give10000Cash()
-	ScriptHook.SetProgression(0, 10000)
-
-	ScriptHook.ShowNotification("Added $10.000 to your wallet")
+local function GiveCash()
+	UI.SimpleTextInput("Quantity", function(success, text)
+		if success then
+			ScriptHook.SetProgression(0, tonumber(text))
+		end
+	end)
 end
 
 local function Add10000Followers()
@@ -196,7 +198,7 @@ local function PlayerMenu()
 	menu:AddButton("Weapons", GiveWeaponsMenu)
 	menu:AddButton("Felony", "Clear heat, toggle felony", OpenWantedMenuCall)
 	menu:AddButton("Relationship", "Set your relationship to fractions", OpenRelationshipMenu)
-	menu:AddButton("Add $10.000 cash", "Adds $10.000 to your pocket", Give10000Cash)
+	menu:AddButton("Add cash", "Adds $10.000 to your pocket", GiveCash)
 	menu:AddButton("Add 10.000 followers", "Boost your level up by adding 10.000 followers", Add10000Followers)
 
 	-- Update
